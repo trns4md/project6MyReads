@@ -8,17 +8,19 @@ class Book extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
     handleChange(event){
-      this.props.shelfChange(event.target.value)
+    
+      this.props.updateShelf(event.target.value);
+      
     }
     render(){
-      
+        const shelf = this.props.book.shelf
         return(
                 <li>
                   <div className="book">
                     <div className="book-top">
                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${this.props.book.imageLinks.thumbnail}")`}}></div>
                       <div className="book-shelf-changer">
-                        <select value ={this.props.book.shelf} onChange ={this.handleChange}>
+                        <select value ={shelf} onChange ={this.handleChange}>
                           <option value="move" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
