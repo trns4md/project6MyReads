@@ -9,8 +9,9 @@ class BooksApp extends React.Component {
     return (
       <div>
         <MainPage />
-        <SearchPage />
+        
       </div> 
     )  
+  }
 }
-export default BooksApp
+export default BooksApp;
