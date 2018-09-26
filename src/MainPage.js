@@ -9,26 +9,18 @@ class MainPage extends React.Component {
         this.state = {
             books: [],
             showSearchPage: false, 
-        }
-        this.updateShelf = this.updateShelf.bind(this);
+        } 
     }
     componentDidMount(){
         BooksAPI.getAll().then((books) => {
             this.setState({books: books})
-        })  
+            })  
         }
-    updateShelf(shelf){
-            this.setState({...this.state.books, shelf: shelf});}
-       
-       /* handleClick(event){
-            this.setState({ showSearchPage: true })
-            if(showSearchPage == true){
-                document.getElementsByClassName('open-Sear')
-            }
-        }*/
-    
+     // update book with new shelf and reload books
+  handleShelfChange = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(() => this.componentDidMount())
+	}
     render(){
-        console.log(this.state.updateShelf);
         return(
             <div className="list-books">
                 <div className="list-books-title">
@@ -36,9 +28,9 @@ class MainPage extends React.Component {
                 </div>
                 <div className="list-books-content">
                 <div>
-                        <Shelf updateShelf={this.state.updateShelf} name= "Currently Reading" books={this.state.books.filter(books=> books.shelf ==="currentlyReading")} />
-                        <Shelf updateShelf={this.state.updateShelf} name= "Want to Read" books={this.state.books.filter(books=> books.shelf ==="wantToRead")} />
-                        <Shelf updateShelf={this.state.updateShelf} name= "Read" books={this.state.books.filter(books=> books.shelf ==="read")} /> 
+                        <Shelf handleShelfChange={this.handleShelfChange} name="Currently Reading" books={this.state.books.filter(book=> book.shelf ==="currentlyReading")} />
+                        <Shelf handleShelfChange={this.handleShelfChange} name="Want to Read" books={this.state.books.filter(book=> book.shelf ==="wantToRead")} />
+                        <Shelf handleShelfChange={this.handleShelfChange} name="Read" books={this.state.books.filter(book=> book.shelf ==="read")} /> 
                 </div>
                 </div>
                 <div className="open-search">
