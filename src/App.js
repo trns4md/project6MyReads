@@ -3,15 +3,17 @@ import React from 'react'
 import './App.css'
 import MainPage from './MainPage';
 import SearchPage from './SearchPage';
-
-class BooksApp extends React.Component {
+import { Switch,Route } from 'react-router-dom'
+class App extends React.Component {
   render() {
     return (
       <div>
-        <MainPage />
-        
-      </div> 
+      <Switch>
+          <Route exact path="/" component={MainPage}  />
+          <Route path="/SearchPage" component={SearchPage} />
+      </Switch>
+      </div>
     )  
   }
 };
-export default BooksApp;
+export default App;
