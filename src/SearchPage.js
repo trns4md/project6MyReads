@@ -17,18 +17,6 @@ class SearchPage extends React.Component {
         this.setState({shelvedBooks: books})
         })  
     }
-    addBookShelf(){
-    const { searchedBooks, shelvedBooks } = this.state;
-    this.setState({
-      searchedBooks: searchedBooks.map(book =>{
-        book.shelf = 'none'
-        shelvedBooks.forEach(shelvedBook => {
-          shelvedBook.id === book.id && (book.shelf = shelvedBook.shelf )
-        })
-        return book
-        })
-      })
-    }
   
     updateQuery = (query) =>{
       this.setState({
@@ -47,11 +35,20 @@ class SearchPage extends React.Component {
       }else{
         this.setState({ searchedBooks: []})
       }
+      const { searchedBooks, shelvedBooks } = this.state;
+        this.setState({
+        searchedBooks: searchedBooks.map(book =>{
+        book.shelf = 'none'
+        shelvedBooks.forEach(shelvedBook => {
+        shelvedBook.id === book.id && (book.shelf = shelvedBook.shelf )
+        })
+        return book
+        })
+      })
       
     }
     handleShelfChange = (book, shelf) => {
       BooksAPI.update(book, shelf).then(() => this.componentDidMount())
-      this.addBookShelf()
     }
     render(){    
         return(
